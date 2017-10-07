@@ -192,6 +192,16 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onToggle(boolean isExpand, RecyclerView.ViewHolder holder);
     }
 
+    /**
+     * 增加子节点数据
+     */
+    public void addNodes(TreeNode pNode, int startIndex) {
+        notifyItemRangeInserted(startIndex, addChildNodes(pNode, startIndex));
+    }
+
+    /**
+     * 更新数据源
+     */
     public void refresh(List<TreeNode> treeNodes) {
         displayNodes.clear();
         findDisplayNodes(treeNodes);
