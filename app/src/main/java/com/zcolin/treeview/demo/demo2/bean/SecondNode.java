@@ -1,9 +1,9 @@
 package com.zcolin.treeview.demo.demo2.bean;
 
-import com.zcolin.treeview.LayoutItemType;
+import com.zcolin.treeview.Node;
 import com.zcolin.treeview.demo.R;
 
-public class SecondNode implements LayoutItemType {
+public class SecondNode implements Node {
     public String id;
     public String nodeName;
     public int    validCount;
@@ -17,5 +17,10 @@ public class SecondNode implements LayoutItemType {
     @Override
     public int getLayoutId() {
         return R.layout.item_secondnode;
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return true;
     }
 }

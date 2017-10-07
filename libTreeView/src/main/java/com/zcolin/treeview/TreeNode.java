@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeNode<T extends LayoutItemType> implements Cloneable {
+public class TreeNode<T extends Node> implements Cloneable {
     public static final int UNDEFINE = -1;
 
     public T              content;//内容数据
@@ -31,7 +31,7 @@ public class TreeNode<T extends LayoutItemType> implements Cloneable {
     }
 
     public boolean isLeaf() {
-        return childList == null || childList.isEmpty();
+        return content.isLeaf();
     }
 
     public TreeNode addChild(TreeNode node) {
