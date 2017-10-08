@@ -21,6 +21,6 @@ public class SecondNode implements Node {
 
     @Override
     public boolean isLeaf() {
-        return true;
+        return false;
     }
 }

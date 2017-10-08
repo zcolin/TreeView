@@ -18,6 +18,7 @@ public class LeafNodeBinder extends TreeViewBinder<LeafNodeBinder.ViewHolder> {
     public void bindView(ViewHolder holder, int position, TreeNode node) {
         LeafNode fileNode = (LeafNode) node.content;
         holder.tvName.setText(fileNode.nodeName);
+        holder.tvName.setSelected(fileNode.isChecked);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class LeafNodeBinder extends TreeViewBinder<LeafNodeBinder.ViewHolder> {
 
         public ViewHolder(View rootView) {
             super(rootView);
-            this.tvName = (TextView) rootView.findViewById(R.id.tv_name);
+            tvName = (TextView) rootView.findViewById(R.id.tv_name);
         }
     }
 }

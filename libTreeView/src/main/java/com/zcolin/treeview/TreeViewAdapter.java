@@ -44,7 +44,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void findDisplayNodes(List<TreeNode> nodes) {
         for (TreeNode node : nodes) {
             displayNodes.add(node);
-            if (!node.isLeaf() && node.isExpand())
+            if (!node.isLeaf() && node.isExpand)
                 findDisplayNodes(node.childList);
         }
     }
@@ -120,7 +120,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     
     public void toggleTreeNode(TreeNode selectedNode){
-        boolean isExpand = selectedNode.isExpand();
+        boolean isExpand = selectedNode.isExpand;
         int positionStart = displayNodes.indexOf(selectedNode) + 1;
         if (!isExpand) {
             notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart));
@@ -134,11 +134,11 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int addChildCount = 0;
         for (TreeNode treeNode : childList) {
             displayNodes.add(startIndex + addChildCount++, treeNode);
-            if (treeNode.isExpand()) {
+            if (treeNode.isExpand) {
                 addChildCount += addChildNodes(treeNode, startIndex + addChildCount);
             }
         }
-        if (!pNode.isExpand())
+        if (!pNode.isExpand)
             pNode.toggle();
         return addChildCount;
     }
@@ -154,7 +154,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int removeChildCount = childList.size();
         displayNodes.removeAll(childList);
         for (TreeNode child : childList) {
-            if (child.isExpand()) {
+            if (child.isExpand) {
                 if (toCollapseChild)
                     child.toggle();
                 removeChildCount += removeChildNodes(child, false);
@@ -253,8 +253,8 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Object getChangePayload(TreeNode oldNode, TreeNode newNode) {
         Bundle diffBundle = new Bundle();
-        if (newNode.isExpand() != oldNode.isExpand()) {
-            diffBundle.putBoolean(KEY_IS_EXPAND, newNode.isExpand());
+        if (newNode.isExpand != oldNode.isExpand) {
+            diffBundle.putBoolean(KEY_IS_EXPAND, newNode.isExpand);
         }
         if (diffBundle.size() == 0)
             return null;
@@ -263,7 +263,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // For DiffUtil, if they are the same items, whether the contents has bean changed.
     private boolean areContentsTheSame(TreeNode oldNode, TreeNode newNode) {
-        return oldNode.content != null && oldNode.content.equals(newNode.content) && oldNode.isExpand() == newNode.isExpand();
+        return oldNode.content != null && oldNode.content.equals(newNode.content) && oldNode.isExpand == newNode.isExpand;
     }
 
     // judge if the same item for DiffUtil
@@ -285,7 +285,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         //Close all root nodes.
         for (TreeNode root : roots) {
-            if (root.isExpand())
+            if (root.isExpand)
                 removeChildNodes(root);
         }
         notifyDiff(temp);
@@ -320,7 +320,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             //Close all root nodes.
             for (TreeNode root : roots) {
-                if (root.isExpand() && !root.equals(pNode))
+                if (root.isExpand && !root.equals(pNode))
                     removeChildNodes(root);
             }
         } else {
@@ -329,7 +329,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return;
             List<TreeNode> childList = parent.childList;
             for (TreeNode node : childList) {
-                if (node.equals(pNode) || !node.isExpand())
+                if (node.equals(pNode) || !node.isExpand)
                     continue;
                 removeChildNodes(node);
             }

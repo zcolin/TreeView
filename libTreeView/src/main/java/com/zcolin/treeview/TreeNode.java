@@ -57,10 +57,6 @@ public class TreeNode<T extends Node> implements Cloneable {
             isExpand = true;
     }
 
-    public boolean isExpand() {
-        return isExpand;
-    }
-
     @Override
     protected TreeNode<T> clone() throws CloneNotSupportedException {
         TreeNode<T> clone = new TreeNode<>(this.content);

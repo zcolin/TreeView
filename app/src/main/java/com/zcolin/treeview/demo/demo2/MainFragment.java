@@ -30,12 +30,12 @@ public class MainFragment extends BaseFrameFrag {
     private TreeViewAdapter    adapter;
 
     public static MainFragment newInstance() {
-         Bundle args = new Bundle();
-         MainFragment fragment = new MainFragment();
+        Bundle args = new Bundle();
+        MainFragment fragment = new MainFragment();
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     protected int getRootViewLayId() {
         return R.layout.fragment_main;
@@ -66,7 +66,7 @@ public class MainFragment extends BaseFrameFrag {
             @Override
             public boolean onClick(TreeNode node, RecyclerView.ViewHolder holder) {
                 if (!node.isLeaf()) {
-                    onToggle(!node.isExpand(), holder);
+                    onToggle(!node.isExpand, holder);
                 } else if (node.content instanceof LeafNode) {
                     LeafNodeBinder.ViewHolder leafViewHolder = (LeafNodeBinder.ViewHolder) holder;
                     boolean isChecked = !leafViewHolder.tvName.isSelected();

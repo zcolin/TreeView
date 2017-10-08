@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onClick(TreeNode node, RecyclerView.ViewHolder holder) {
                 if (!node.isLeaf()) {
                     //Update and toggle the node.
-                    onToggle(!node.isExpand(), holder);
+                    onToggle(!node.isExpand, holder);
 //                    if (!node.isExpand())
 //                        adapter.collapseBrotherNode(node);
                 }
