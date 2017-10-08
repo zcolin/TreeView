@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String KEY_IS_EXPAND = "IS_EXPAND";
 
@@ -108,18 +110,22 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     return;
                 if (selectedNode.isLeaf())
                     return;
-                boolean isExpand = selectedNode.isExpand();
-                int positionStart = displayNodes.indexOf(selectedNode) + 1;
-                if (!isExpand) {
-                    notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart));
-                } else {
-                    notifyItemRangeRemoved(positionStart, removeChildNodes(selectedNode, true));
-                }
+                toggleTreeNode(selectedNode);
             }
         });
         for (TreeViewBinder viewBinder : viewBinders) {
             if (viewBinder.getLayoutId() == displayNodes.get(position).content.getLayoutId())
                 viewBinder.bindView(holder, position, displayNodes.get(position));
+        }
+    }
+    
+    public void toggleTreeNode(TreeNode selectedNode){
+        boolean isExpand = selectedNode.isExpand();
+        int positionStart = displayNodes.indexOf(selectedNode) + 1;
+        if (!isExpand) {
+            notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart));
+        } else {
+            notifyItemRangeRemoved(positionStart, removeChildNodes(selectedNode, true));
         }
     }
 
