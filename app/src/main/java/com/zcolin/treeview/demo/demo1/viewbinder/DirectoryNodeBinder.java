@@ -1,3 +1,12 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-1-9 下午2:34
+ * ********************************************************
+ */
+
 package com.zcolin.treeview.demo.demo1.viewbinder;
 
 import android.view.View;
@@ -25,7 +34,8 @@ public class DirectoryNodeBinder extends TreeViewBinder<DirectoryNodeBinder.View
         holder.tvName.setText(dirNode.dirName);
         if (node.isLeaf())
             holder.ivArrow.setVisibility(View.INVISIBLE);
-        else holder.ivArrow.setVisibility(View.VISIBLE);
+        else
+            holder.ivArrow.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -35,12 +45,12 @@ public class DirectoryNodeBinder extends TreeViewBinder<DirectoryNodeBinder.View
 
     public static class ViewHolder extends TreeViewBinder.ViewHolder {
         private ImageView ivArrow;
-        private TextView tvName;
+        private TextView  tvName;
 
         public ViewHolder(View rootView) {
             super(rootView);
-            this.ivArrow = (ImageView) rootView.findViewById(R.id.iv_arrow);
-            this.tvName = (TextView) rootView.findViewById(R.id.tv_name);
+            this.ivArrow = rootView.findViewById(R.id.iv_arrow);
+            this.tvName = rootView.findViewById(R.id.tv_name);
         }
 
         public ImageView getIvArrow() {

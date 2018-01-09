@@ -1,3 +1,12 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-1-9 下午2:34
+ * ********************************************************
+ */
+
 package com.zcolin.treeview.demo.demo1.viewbinder;
 
 import android.view.View;
@@ -30,7 +39,7 @@ public class FileNodeBinder extends TreeViewBinder<FileNodeBinder.ViewHolder> {
 
         public ViewHolder(View rootView) {
             super(rootView);
-            this.tvName = (TextView) rootView.findViewById(R.id.tv_name);
+            this.tvName = rootView.findViewById(R.id.tv_name);
         }
 
     }

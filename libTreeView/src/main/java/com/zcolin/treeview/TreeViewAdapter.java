@@ -1,3 +1,12 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-1-9 下午2:34
+ * ********************************************************
+ */
+
 package com.zcolin.treeview;
 
 import android.content.Context;
@@ -13,8 +22,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String KEY_IS_EXPAND = "IS_EXPAND";
@@ -56,17 +63,14 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                               .inflate(viewType, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         if (viewBinders.size() == 1)
-            return viewBinders.get(0)
-                              .provideViewHolder(v);
+            return viewBinders.get(0).provideViewHolder(v);
         for (TreeViewBinder viewBinder : viewBinders) {
             if (viewBinder.getLayoutId() == viewType)
                 return viewBinder.provideViewHolder(v);
         }
-        return viewBinders.get(0)
-                          .provideViewHolder(v);
+        return viewBinders.get(0).provideViewHolder(v);
     }
 
     @Override
@@ -90,36 +94,32 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (padding == 0) {
             padding = dip2px(holder.itemView.getContext(), 20);
         }
-        holder.itemView.setPadding(displayNodes.get(position)
-                                               .getDepth() * padding, 3, 3, 3);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TreeNode selectedNode = displayNodes.get(holder.getLayoutPosition());
-                // Prevent multi-click during the short interval.
-                try {
-                    long lastClickTime = (long) holder.itemView.getTag();
-                    if (System.currentTimeMillis() - lastClickTime < 500)
-                        return;
-                } catch (Exception e) {
-                    holder.itemView.setTag(System.currentTimeMillis());
-                }
+        holder.itemView.setPadding(displayNodes.get(position).getDepth() * padding, 3, 3, 3);
+        holder.itemView.setOnClickListener(v -> {
+            TreeNode selectedNode = displayNodes.get(holder.getLayoutPosition());
+            // Prevent multi-click during the short interval.
+            try {
+                long lastClickTime = (long) holder.itemView.getTag();
+                if (System.currentTimeMillis() - lastClickTime < 500)
+                    return;
+            } catch (Exception e) {
                 holder.itemView.setTag(System.currentTimeMillis());
-
-                if (onTreeNodeListener != null && onTreeNodeListener.onClick(selectedNode, holder))
-                    return;
-                if (selectedNode.isLeaf())
-                    return;
-                toggleTreeNode(selectedNode);
             }
+            holder.itemView.setTag(System.currentTimeMillis());
+
+            if (onTreeNodeListener != null && onTreeNodeListener.onClick(selectedNode, holder))
+                return;
+            if (selectedNode.isLeaf())
+                return;
+            toggleTreeNode(selectedNode);
         });
         for (TreeViewBinder viewBinder : viewBinders) {
             if (viewBinder.getLayoutId() == displayNodes.get(position).content.getLayoutId())
                 viewBinder.bindView(holder, position, displayNodes.get(position));
         }
     }
-    
-    public void toggleTreeNode(TreeNode selectedNode){
+
+    public void toggleTreeNode(TreeNode selectedNode) {
         boolean isExpand = selectedNode.isExpand;
         int positionStart = displayNodes.indexOf(selectedNode) + 1;
         if (!isExpand) {
@@ -339,8 +339,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     private static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources()
-                                   .getDisplayMetrics().density;
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 }

@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TreeView.iml" filepath="$PROJECT_DIR$/TreeView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TreeView.iml" filepath="$PROJECT_DIR$/.idea/TreeView.iml" />
+      <module fileurl="file://E:\workspace_as\zcolin_lib\TreeView\TreeView.iml" filepath="E:\workspace_as\zcolin_lib\TreeView\TreeView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\workspace_as\zcolin_lib\TreeView\app\app.iml" filepath="E:\workspace_as\zcolin_lib\TreeView\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libTreeView/libTreeView.iml" filepath="$PROJECT_DIR$/libTreeView/libTreeView.iml" />
+      <module fileurl="file://E:\workspace_as\zcolin_lib\TreeView\libTreeView\libTreeView.iml" filepath="E:\workspace_as\zcolin_lib\TreeView\libTreeView\libTreeView.iml" />
     </modules>
   </component>
 </project>

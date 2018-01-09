@@ -1,3 +1,12 @@
+/*
+ * *********************************************************
+ *   author   colin
+ *   company  telchina
+ *   email    wanglin2046@126.com
+ *   date     18-1-9 下午2:34
+ * ********************************************************
+ */
+
 package com.zcolin.treeview.demo.demo2.viewbinder;
 
 import android.view.View;
@@ -32,8 +41,8 @@ public class SecondNodeBinder extends TreeViewBinder<SecondNodeBinder.ViewHolder
 
         public ViewHolder(View rootView) {
             super(rootView);
-            tvName = (TextView) rootView.findViewById(R.id.tv_name);
-            tvCount = (TextView) rootView.findViewById(R.id.tv_count);
+            tvName = rootView.findViewById(R.id.tv_name);
+            tvCount = rootView.findViewById(R.id.tv_count);
 
         }
     }

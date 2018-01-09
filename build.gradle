@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
@@ -13,6 +14,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        google()
     }
 }
 
@@ -20,12 +22,16 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+//project级别的全局统一配置,在module的build.gradle中引用如:compileSdkVersion rootProject.ext.compileSdkVersion
 ext {
-    compileSdkVersion = 24
-    buildToolsVersion = "24.0.3"
-    minSdkVersion = 14
-    targetSdkVersion = 23
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.2"
+    supprotVersion = "26.0.2"
+    minSdkVersion = 15
+    targetSdkVersion = 24
 
     versionCode = 1
-    versionName = "v1.0"
+    versionName = "1.0"
+
+    release_path = '../.release_apk'
 }
