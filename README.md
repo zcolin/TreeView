@@ -19,7 +19,9 @@ allprojects {
 app build.gradle
 ```groovy
 dependencies {
-    compile 'com.github.zcolin:TreeView:latest.release'
+    implementation "com.android.support:appcompat-v7:$supprotVersion"
+    implementation "com.android.support:recyclerview-v7:$supprotVersion"
+    implementation 'com.github.zcolin:TreeView:latest.release'
 }
 ```
 
