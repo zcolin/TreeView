@@ -132,10 +132,12 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int addChildNodes(TreeNode pNode, int startIndex) {
         List<TreeNode> childList = pNode.childList;
         int addChildCount = 0;
-        for (TreeNode treeNode : childList) {
-            displayNodes.add(startIndex + addChildCount++, treeNode);
-            if (treeNode.isExpand) {
-                addChildCount += addChildNodes(treeNode, startIndex + addChildCount);
+        if (childList != null) {
+            for (TreeNode treeNode : childList) {
+                displayNodes.add(startIndex + addChildCount++, treeNode);
+                if (treeNode.isExpand) {
+                    addChildCount += addChildNodes(treeNode, startIndex + addChildCount);
+                }
             }
         }
         if (!pNode.isExpand)
