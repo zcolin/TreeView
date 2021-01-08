@@ -11,10 +11,10 @@ package com.zcolin.treeview;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +38,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public TreeViewAdapter(List<TreeNode> nodes, List<? extends TreeViewBinder> viewBinders) {
         displayNodes = new ArrayList<>();
-        if (nodes != null)
+        if (nodes != null) {
             findDisplayNodes(nodes);
+        }
         this.viewBinders = viewBinders;
     }
 
@@ -51,8 +52,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void findDisplayNodes(List<TreeNode> nodes) {
         for (TreeNode node : nodes) {
             displayNodes.add(node);
-            if (!node.isLeaf() && node.isExpand)
+            if (!node.isLeaf() && node.isExpand) {
                 findDisplayNodes(node.childList);
+            }
         }
     }
 
@@ -64,11 +66,13 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewBinders.size() == 1)
+        if (viewBinders.size() == 1) {
             return viewBinders.get(0).provideViewHolder(v);
+        }
         for (TreeViewBinder viewBinder : viewBinders) {
-            if (viewBinder.getLayoutId() == viewType)
+            if (viewBinder.getLayoutId() == viewType) {
                 return viewBinder.provideViewHolder(v);
+            }
         }
         return viewBinders.get(0).provideViewHolder(v);
     }
@@ -80,8 +84,11 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             for (String key : b.keySet()) {
                 switch (key) {
                     case KEY_IS_EXPAND:
-                        if (onTreeNodeListener != null)
+                        if (onTreeNodeListener != null) {
                             onTreeNodeListener.onToggle(b.getBoolean(key), holder);
+                        }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -100,22 +107,26 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             // Prevent multi-click during the short interval.
             try {
                 long lastClickTime = (long) holder.itemView.getTag();
-                if (System.currentTimeMillis() - lastClickTime < 500)
+                if (System.currentTimeMillis() - lastClickTime < 500) {
                     return;
+                }
             } catch (Exception e) {
                 holder.itemView.setTag(System.currentTimeMillis());
             }
             holder.itemView.setTag(System.currentTimeMillis());
 
-            if (onTreeNodeListener != null && onTreeNodeListener.onClick(selectedNode, holder))
+            if (onTreeNodeListener != null && onTreeNodeListener.onClick(selectedNode, holder)) {
                 return;
-            if (selectedNode.isLeaf())
+            }
+            if (selectedNode.isLeaf()) {
                 return;
+            }
             toggleTreeNode(selectedNode);
         });
         for (TreeViewBinder viewBinder : viewBinders) {
-            if (viewBinder.getLayoutId() == displayNodes.get(position).content.getLayoutId())
+            if (viewBinder.getLayoutId() == displayNodes.get(position).content.getLayoutId()) {
                 viewBinder.bindView(holder, position, displayNodes.get(position));
+            }
         }
     }
 
@@ -140,8 +151,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         }
-        if (!pNode.isExpand)
+        if (!pNode.isExpand) {
             pNode.toggle();
+        }
         return addChildCount;
     }
 
@@ -150,20 +162,23 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private int removeChildNodes(TreeNode pNode, boolean shouldToggle) {
-        if (pNode.isLeaf())
+        if (pNode.isLeaf()) {
             return 0;
+        }
         List<TreeNode> childList = pNode.childList;
         int removeChildCount = childList.size();
         displayNodes.removeAll(childList);
         for (TreeNode child : childList) {
             if (child.isExpand) {
-                if (toCollapseChild)
+                if (toCollapseChild) {
                     child.toggle();
+                }
                 removeChildCount += removeChildNodes(child, false);
             }
         }
-        if (shouldToggle)
+        if (shouldToggle) {
             pNode.toggle();
+        }
         return removeChildCount;
     }
 
@@ -235,19 +250,22 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             // judge if the same items
             @Override
             public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                return TreeViewAdapter.this.areItemsTheSame(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+                return TreeViewAdapter.this.areItemsTheSame(temp.get(oldItemPosition),
+                                                            displayNodes.get(newItemPosition));
             }
 
             // if they are the same items, whether the contents has bean changed.
             @Override
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                return TreeViewAdapter.this.areContentsTheSame(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+                return TreeViewAdapter.this.areContentsTheSame(temp.get(oldItemPosition),
+                                                               displayNodes.get(newItemPosition));
             }
 
             @Nullable
             @Override
             public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-                return TreeViewAdapter.this.getChangePayload(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+                return TreeViewAdapter.this.getChangePayload(temp.get(oldItemPosition),
+                                                             displayNodes.get(newItemPosition));
             }
         });
         diffResult.dispatchUpdatesTo(this);
@@ -258,8 +276,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (newNode.isExpand != oldNode.isExpand) {
             diffBundle.putBoolean(KEY_IS_EXPAND, newNode.isExpand);
         }
-        if (diffBundle.size() == 0)
+        if (diffBundle.size() == 0) {
             return null;
+        }
         return diffBundle;
     }
 
@@ -282,13 +301,15 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //find all root nodes.
         List<TreeNode> roots = new ArrayList<>();
         for (TreeNode displayNode : displayNodes) {
-            if (displayNode.isRoot())
+            if (displayNode.isRoot()) {
                 roots.add(displayNode);
+            }
         }
         //Close all root nodes.
         for (TreeNode root : roots) {
-            if (root.isExpand)
+            if (root.isExpand) {
                 removeChildNodes(root);
+            }
         }
         notifyDiff(temp);
     }
@@ -317,22 +338,26 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (pNode.isRoot()) {
             List<TreeNode> roots = new ArrayList<>();
             for (TreeNode displayNode : displayNodes) {
-                if (displayNode.isRoot())
+                if (displayNode.isRoot()) {
                     roots.add(displayNode);
+                }
             }
             //Close all root nodes.
             for (TreeNode root : roots) {
-                if (root.isExpand && !root.equals(pNode))
+                if (root.isExpand && !root.equals(pNode)) {
                     removeChildNodes(root);
+                }
             }
         } else {
             TreeNode parent = pNode.parent;
-            if (parent == null)
+            if (parent == null) {
                 return;
+            }
             List<TreeNode> childList = parent.childList;
             for (TreeNode node : childList) {
-                if (node.equals(pNode) || !node.isExpand)
+                if (node.equals(pNode) || !node.isExpand) {
                     continue;
+                }
                 removeChildNodes(node);
             }
         }

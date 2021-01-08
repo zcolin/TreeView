@@ -32,10 +32,11 @@ public class DirectoryNodeBinder extends TreeViewBinder<DirectoryNodeBinder.View
         holder.ivArrow.setRotation(rotateDegree);
         Dir dirNode = (Dir) node.content;
         holder.tvName.setText(dirNode.dirName);
-        if (node.isLeaf())
+        if (node.isLeaf()) {
             holder.ivArrow.setVisibility(View.INVISIBLE);
-        else
+        } else {
             holder.ivArrow.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

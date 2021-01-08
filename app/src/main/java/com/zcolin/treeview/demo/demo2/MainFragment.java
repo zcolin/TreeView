@@ -10,10 +10,10 @@
 package com.zcolin.treeview.demo.demo2;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.zcolin.treeview.TreeNode;
 import com.zcolin.treeview.TreeViewAdapter;
@@ -50,6 +50,7 @@ public class MainFragment extends BaseFrameFrag {
         return R.layout.fragment_main;
     }
 
+    @Override
     protected void createView(@Nullable Bundle savedInstanceState) {
         recyclerView = rootView.findViewById(R.id.recyclerView);
         swipeRefreshLayout = rootView.findViewById(R.id.srl_main);
@@ -63,11 +64,15 @@ public class MainFragment extends BaseFrameFrag {
         initData();
     }
 
+    @Override
     protected void lazyLoad(@Nullable Bundle savedInstanceState) {
     }
 
     private void initData() {
-        adapter = new TreeViewAdapter(requestData(), Arrays.asList(new LeafNodeBinder(), new FirstNodeBinder(), new SecondNodeBinder()));
+        adapter = new TreeViewAdapter(requestData(),
+                                      Arrays.asList(new LeafNodeBinder(),
+                                                    new FirstNodeBinder(),
+                                                    new SecondNodeBinder()));
         adapter.setOnTreeNodeListener(new TreeViewAdapter.OnTreeNodeListener() {
             @Override
             public boolean onClick(TreeNode node, RecyclerView.ViewHolder holder) {
@@ -95,13 +100,27 @@ public class MainFragment extends BaseFrameFrag {
         TreeNode<FirstNode> app = new TreeNode<>(new FirstNode("一级节点1", "1"));
         nodes.add(app);
         app.addChild(new TreeNode<>(new SecondNode("二级节点", "21")).addChild(new TreeNode<>(new LeafNode("叶子节点", "91"))));
-        app.addChild(new TreeNode<>(new SecondNode("二级节点", "22")).addChild(new TreeNode<>(new SecondNode("三级节点", "31")).addChild(new TreeNode<>(new 
-                SecondNode("四级节点", "41"))
-                .addChild(new TreeNode<>(new SecondNode("五级节点", "51")).addChild(new TreeNode<>(new LeafNode("叶子节点", "92")))
-                                                                      .addChild(new TreeNode<>(new LeafNode("叶子节点", "97")))
-                                                                      .addChild(new TreeNode<>(new LeafNode("叶子节点", "98")))
-                                                                      .addChild(new TreeNode<>(new LeafNode("叶子节点", "99")))
-                                                                      .addChild(new TreeNode<>(new LeafNode("叶子节点", "9n")))))));
+        app.addChild(new TreeNode<>(new SecondNode("二级节点", "22")).addChild(new TreeNode<>(new SecondNode("三级节点",
+                                                                                                         "31")).addChild(
+                new TreeNode<>(new SecondNode("四级节点", "41")).addChild(new TreeNode<>(new SecondNode("五级节点",
+                                                                                                    "51")).addChild(new TreeNode<>(
+                        new LeafNode("叶子节点", "92")))
+                                                                                                          .addChild(new TreeNode<>(
+                                                                                                                  new LeafNode(
+                                                                                                                          "叶子节点",
+                                                                                                                          "97")))
+                                                                                                          .addChild(new TreeNode<>(
+                                                                                                                  new LeafNode(
+                                                                                                                          "叶子节点",
+                                                                                                                          "98")))
+                                                                                                          .addChild(new TreeNode<>(
+                                                                                                                  new LeafNode(
+                                                                                                                          "叶子节点",
+                                                                                                                          "99")))
+                                                                                                          .addChild(new TreeNode<>(
+                                                                                                                  new LeafNode(
+                                                                                                                          "叶子节点",
+                                                                                                                          "9n")))))));
         TreeNode<FirstNode> res = new TreeNode<>(new FirstNode("一级节点2", "12"));
         nodes.add(res);
         res.addChild(new TreeNode<>(new SecondNode("二级节点", "23")).addChild(new TreeNode<>(new LeafNode("叶子节点", "93")))

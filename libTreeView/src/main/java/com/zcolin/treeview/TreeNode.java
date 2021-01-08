@@ -9,7 +9,7 @@
 
 package com.zcolin.treeview;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +17,27 @@ import java.util.List;
 public class TreeNode<T extends Node> implements Cloneable {
     public static final int UNDEFINE = -1;
 
-    public T              content;//内容数据
-    public TreeNode       parent;//父节点
-    public List<TreeNode> childList;//子节点
-    public boolean        isExpand;//是否展开
-    private int depth = UNDEFINE; //树深度
+    /** 内容数据 */
+    public  T              content;
+    /** 父节点 */
+    public  TreeNode       parent;
+    /** 子节点 */
+    public  List<TreeNode> childList;
+    /** 是否展开 */
+    public  boolean        isExpand;
+    /** 树深度 */
+    private int            depth = UNDEFINE;
 
     public TreeNode(@NonNull T content) {
         this.content = content;
     }
 
     public int getDepth() {
-        if (isRoot())
+        if (isRoot()) {
             depth = 0;
-        else if (depth == UNDEFINE)
+        } else if (depth == UNDEFINE) {
             depth = parent.getDepth() + 1;
+        }
         return depth;
     }
 
@@ -44,8 +50,9 @@ public class TreeNode<T extends Node> implements Cloneable {
     }
 
     public TreeNode addChild(TreeNode node) {
-        if (childList == null)
+        if (childList == null) {
             childList = new ArrayList<>();
+        }
         childList.add(node);
         node.parent = this;
         return this;
@@ -57,13 +64,15 @@ public class TreeNode<T extends Node> implements Cloneable {
     }
 
     public void collapse() {
-        if (!isExpand)
+        if (!isExpand) {
             isExpand = false;
+        }
     }
 
     public void expand() {
-        if (isExpand)
+        if (isExpand) {
             isExpand = true;
+        }
     }
 
     @Override
