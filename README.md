@@ -19,8 +19,8 @@ allprojects {
 app build.gradle
 ```groovy
 dependencies {
-    implementation "com.android.support:appcompat-v7:$supprotVersion"
-    implementation "com.android.support:recyclerview-v7:$supprotVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.github.zcolin:TreeView:latest.release'
 }
 ```
